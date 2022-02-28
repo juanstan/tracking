@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Support',
-      url: '/app/tabs/schedule',
-      icon: 'calendar'
+      url: '/app/tabs/support',
+      icon: 'help'
     }
   ];
   loggedIn = false;
@@ -93,6 +93,9 @@ export class AppComponent implements OnInit {
   updateLoggedInStatus(loggedIn: boolean) {
     setTimeout(() => {
       this.loggedIn = loggedIn;
+      if (!loggedIn) {
+        this.router.navigateByUrl('/login');
+      }
     }, 300);
   }
 
@@ -116,9 +119,9 @@ export class AppComponent implements OnInit {
     });
   }
 
-  openTutorial() {
+  /*openTutorial() {
     this.menu.enable(false);
-    this.storage.set('ion_did_tutorial', false);
-    this.router.navigateByUrl('/tutorial');
-  }
+    // this.storage.set('ion_did_tutorial', false);
+    this.router.navigateByUrl('/login');
+  }*/
 }

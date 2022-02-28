@@ -24,7 +24,7 @@ export class SettingsPage {
 
   startApp() {
     this.router
-      .navigateByUrl('/app/tabs/schedule', { replaceUrl: true })
+      .navigateByUrl('/app/tabs/map', { replaceUrl: true })
       .then(() => this.storage.set('ion_did_tutorial', true));
   }
 
@@ -40,15 +40,15 @@ export class SettingsPage {
   ionViewWillEnter() {
     this.storage.get('ion_did_tutorial').then(res => {
       if (res === true) {
-        this.router.navigateByUrl('/app/tabs/schedule', { replaceUrl: true });
+        this.router.navigateByUrl('/app/tabs/map', { replaceUrl: true });
       }
     });
 
-    this.menu.enable(false);
+    // this.menu.enable(false);
   }
 
   ionViewDidLeave() {
     // enable the root left menu when leaving the tutorial page
-    this.menu.enable(true);
+    // this.menu.enable(true);
   }
 }
