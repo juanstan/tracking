@@ -2,12 +2,10 @@
 
 This application is purely a kitchen-sink demo of the Ionic Framework and Angular.
 
-**There is not an actual Tracking system at this time.** This project is just to show off Ionic components in a real-world application. Please go through the steps in [CONTRIBUTING](https://github.com/ionic-team/ionic-conference-app/blob/master/.github/CONTRIBUTING.md) before submitting an issue.
+**There is not an actual Tracking system at this time.** This project is just to show off Ionic components in a real-world application.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
-- [Contributing](#contributing)
-- [App Preview](#app-preview)
 - [Deploying](#deploying)
   - [Progressive Web App](#progressive-web-app)
   - [Android](#android)
