@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 
 import { UserData } from './providers/user-data';
+import {AccountService} from './providers/account.service';
 
 @Component({
   selector: 'app-root',
@@ -48,13 +49,14 @@ export class AppComponent implements OnInit {
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
+    private accountService: AccountService
   ) {
     this.initializeApp();
   }
 
   async ngOnInit() {
     this.checkLoginStatus();
-    this.listenForLoginEvents();
+    // this.listenForLoginEvents();
 
     this.swUpdate.available.subscribe(async res => {
       const toast = await this.toastCtrl.create({
@@ -85,12 +87,17 @@ export class AppComponent implements OnInit {
   }
 
   checkLoginStatus() {
-    return this.userData.isLoggedIn().then(loggedIn => {
+    if (!this.accountService.userValue) {
+      this.router.navigateByUrl('/login');
+    }
+
+    return;
+    /*return this.userData.isLoggedIn().then(loggedIn => {
       return this.updateLoggedInStatus(loggedIn);
-    });
+    });*/
   }
 
-  updateLoggedInStatus(loggedIn: boolean) {
+  /*updateLoggedInStatus(loggedIn: boolean) {
     setTimeout(() => {
       this.loggedIn = loggedIn;
       if (!loggedIn) {
@@ -111,12 +118,13 @@ export class AppComponent implements OnInit {
     window.addEventListener('user:logout', () => {
       this.updateLoggedInStatus(false);
     });
-  }
+  }*/
 
   logout() {
-    this.userData.logout().then(() => {
+    this.accountService.logout();
+    /*this.userData.logout().then(() => {
       return this.router.navigateByUrl('/app/tabs/maps');
-    });
+    });*/
   }
 
   /*openTutorial() {

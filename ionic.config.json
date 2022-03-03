@@ -1,5 +1,5 @@
 {
-  "name": "ionic-conference-app",
+  "name": "ionic-tracking-app",
   "type": "angular",
   "integrations": {
     "cordova": {}
