@@ -87,8 +87,8 @@ export class AppComponent implements OnInit {
   }
 
   checkLoginStatus() {
-    if (!this.accountService.userValue) {
-      this.router.navigateByUrl('/login');
+    if (!this.accountService.isLoggedIn()) {
+      return this.router.navigateByUrl('/login');
     }
 
     return;

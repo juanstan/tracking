@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>Signup</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,34 +10,55 @@
     <img src="assets/img/appicon.svg" alt="Ionic Logo">
   </div>
 
-  <form #signupForm="ngForm" novalidate>
-    <ion-list lines="none">
-      <ion-item>
-        <ion-label position="stacked" color="primary">Username</ion-label>
-        <ion-input [(ngModel)]="signup.username" name="username" type="text" #username="ngModel" required>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item lines="full">
+        <ion-label position="floating" color="primary">First Name</ion-label>
+        <ion-input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
         </ion-input>
+        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+          <div *ngIf="f.firstName.errors.required">First Name is required</div>
+        </div>
       </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="username.valid || submitted === false" class="ion-padding-start">
-          Username is required
-        </p>
-      </ion-text>
-
-      <ion-item>
-        <ion-label position="stacked" color="primary">Password</ion-label>
-        <ion-input [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
+      <ion-item lines="full">
+        <ion-label position="floating" color="primary">Last Name</ion-label>
+        <ion-input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
         </ion-input>
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f.lastName.errors.required">First Name is required</div>
+        </div>
       </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="password.valid || submitted === false" class="ion-padding-start">
-          Password is required
-        </p>
-      </ion-text>
+      <ion-item lines="full">
+        <ion-label position="floating" color="primary">Password</ion-label>
+        <ion-input type="text" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+        </ion-input>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">First Name is required</div>
+        </div>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="primary">Password Confirmation</ion-label>
+        <ion-input type="text" formControlName="passwordConformation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+        </ion-input>
+        <div *ngIf="submitted && f.passwordConformation.errors" class="invalid-feedback">
+          <div *ngIf="f.passwordConformation.errors.required">First Name is required</div>
+        </div>
+      </ion-item>
     </ion-list>
 
-    <div class="ion-padding">
-      <ion-button (click)="onSignup(signupForm)" type="submit" expand="block">Create</ion-button>
-    </div>
+    <ion-row>
+      <ion-col>
+        <button [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Register
+        </button>
+      </ion-col>
+      <ion-col>
+        <a routerLink="../login" class="btn btn-link">Cancel</a>
+      </ion-col>
+    </ion-row>
+
+
   </form>
 
 </ion-content>

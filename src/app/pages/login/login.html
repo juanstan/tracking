@@ -35,6 +35,12 @@
           Password is required
         </p>
       </ion-text>
+
+      <ion-text color="danger">
+        <p [hidden]="!error" class="ion-padding-start">
+          {{error}}
+        </p>
+      </ion-text>
     </ion-list>
 
     <ion-row>

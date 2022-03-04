@@ -1,48 +1,64 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {environment} from '../../environments/environment';
 import {User} from '../model/user';
+import {LoginResult} from '../model/auth/login-result';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
   private userSubject: BehaviorSubject<User>;
-  public user: Observable<User>;
+  private tokenSubject: BehaviorSubject<string>;
+  public $user: Observable<User>;
 
   constructor(
     private router: Router,
     private http: HttpClient
   ) {
-    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-    this.user = this.userSubject.asObservable();
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('login'))?.user);
+    this.tokenSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('login'))?.access_token);
+    this.$user = this.userSubject.asObservable();
   }
 
   public get userValue(): User {
     return this.userSubject.value;
   }
 
+  public get tokenValue(): string {
+    return this.tokenSubject.value;
+  }
+
   login(username, password) {
-    return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email: username, password })
-      .pipe(map(user => {
+    return this.http.post<LoginResult>(`${environment.apiUrl}/auth/login`, { email: username, password })
+      .pipe(map(login => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(user));
-        this.userSubject.next(user);
-        return user;
+        localStorage.setItem('login', JSON.stringify(login));
+        this.userSubject.next(login.user);
+        this.tokenSubject.next(login.access_token);
+        return login.user;
       }));
   }
 
-  logout() {
+  async logout() {
     // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
-    this.userSubject.next(null);
-    this.router.navigate(['/login']);
+    return await this.http.post(`${environment.apiUrl}/auth/logout`, {}).toPromise().then(async () => {
+      localStorage.removeItem('login');
+      await this.router.navigate(['/login']);
+    });
   }
 
-  register(user: User) {
-    return this.http.post(`${environment.apiUrl}/users/register`, user);
+  register(user) {
+    const obj = {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      password: user.password,
+      password_conformation: user.password_conformation
+    };
+    return this.http.post(`${environment.apiUrl}/auth/register`, obj);
   }
 
   getAll() {
@@ -78,5 +94,13 @@ export class AccountService {
         }
         return x;
       }));
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.tokenValue;
+  }
+
+  loadAllData() {
+    return this.http.get(`${environment.apiUrl}/me/start`);
   }
 }

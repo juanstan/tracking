@@ -1,27 +1,33 @@
-import { AfterViewInit, Component } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-
 import { AlertController } from '@ionic/angular';
-
-import { UserData } from '../../providers/user-data';
-
+import {AccountService} from '../../providers/account.service';
+import {User} from '../../model/user';
+import {LoginData} from '../../model/auth/login-data';
 
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html',
   styleUrls: ['./account.scss'],
 })
-export class AccountPage implements AfterViewInit {
-  username: string;
+export class AccountPage implements AfterViewInit, OnInit {
+  password: string;
+  email: string;
+  user: User;
+  login: LoginData;
 
   constructor(
     public alertCtrl: AlertController,
     public router: Router,
-    public userData: UserData
+    public accountService: AccountService
   ) { }
 
+  ngOnInit() {
+    this.user = this.accountService.userValue;
+  }
+
   ngAfterViewInit() {
-    this.getUsername();
+    this.getEmail();
   }
 
   updatePicture() {
@@ -33,33 +39,32 @@ export class AccountPage implements AfterViewInit {
   // clicking Cancel will close the alert and do nothing
   async changeUsername() {
     const alert = await this.alertCtrl.create({
-      header: 'Change Username',
+      header: 'Change Password',
       buttons: [
         'Cancel',
         {
           text: 'Ok',
           handler: (data: any) => {
-            this.userData.setUsername(data.username);
-            this.getUsername();
+            this.accountService.update(this.user.id, {password: data.password});
+            this.getEmail();
           }
         }
       ],
       inputs: [
         {
           type: 'text',
-          name: 'username',
-          value: this.username,
-          placeholder: 'username'
+          name: 'password',
+          value: this.password,
+          placeholder: 'password'
         }
       ]
     });
     await alert.present();
   }
 
-  getUsername() {
-    this.userData.getUsername().then((username) => {
-      this.username = username;
-    });
+  getEmail() {
+    this.email = this.accountService.userValue?.email;
+
   }
 
   changePassword() {
@@ -67,7 +72,7 @@ export class AccountPage implements AfterViewInit {
   }
 
   logout() {
-    this.userData.logout();
+    this.accountService.logout();
     this.router.navigateByUrl('/login');
   }
 
