@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import {AccountService} from '../../providers/account.service';
-import {AlertService} from '../../providers/alert.service';
+import {AlertService} from '../../shared/services/alert.service';
 
 
 @Component({ templateUrl: 'signup.html' })
@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.accountService.isLoggedIn()) {
+    if (this.accountService.tokenValue) {
       this.router.navigateByUrl('/app/tabs/map');
       return;
     }

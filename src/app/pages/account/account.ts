@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import {AccountService} from '../../providers/account.service';
 import {User} from '../../model/user';
 import {LoginData} from '../../model/auth/login-data';
+import { snapshot } from '../../shared/utils/snapshot.util';
 
 @Component({
   selector: 'page-account',

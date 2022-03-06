@@ -6,11 +6,10 @@ import { MenuController, Platform, ToastController } from '@ionic/angular';
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
-import { Storage } from '@ionic/storage';
-
 import { UserData } from './providers/user-data';
 import {AccountService} from './providers/account.service';
+import {StorageService} from './core/services/storage.service';
+import {VesselService} from "./providers/vessel.service";
 
 @Component({
   selector: 'app-root',
@@ -45,7 +44,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private storage: Storage,
+    private storageService: StorageService,
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
@@ -86,10 +85,15 @@ export class AppComponent implements OnInit {
     });
   }
 
-  checkLoginStatus() {
-    if (!this.accountService.isLoggedIn()) {
+  async checkLoginStatus() {
+    await this.storageService.init();
+    await this.accountService.init();
+
+    if (!this.accountService.userValue) {
       return this.router.navigateByUrl('/login');
     }
+
+    this.accountService.loadAllData().subscribe();
 
     return;
     /*return this.userData.isLoggedIn().then(loggedIn => {

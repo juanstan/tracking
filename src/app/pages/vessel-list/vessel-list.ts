@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
+import {VesselService} from '../../providers/vessel.service';
 
 @Component({
   selector: 'page-vessel-list',
@@ -9,11 +10,15 @@ import { ConferenceData } from '../../providers/conference-data';
 export class VesselListPage {
   vessels: any[] = [];
 
-  constructor(public confData: ConferenceData) {}
+  constructor(
+    /*public confData: ConferenceData*/
+    private vesselService: VesselService
+  ) {}
 
   ionViewDidEnter() {
-    this.confData.getVessels().subscribe((vessels: any[]) => {
+    /*this.confData.getVessels().subscribe((vessels: any[]) => {
       this.vessels = vessels;
-    });
+    });*/
+    this.vessels = this.vesselService.vessels;
   }
 }
