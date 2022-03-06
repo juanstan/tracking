@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Support',
-      url: '/app/tabs/support',
+      url: '/support',
       icon: 'help'
     }
   ];
@@ -126,10 +126,11 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.accountService.logout();
+    this.router.navigateByUrl('/login');
+  }
     /*this.userData.logout().then(() => {
       return this.router.navigateByUrl('/app/tabs/maps');
     });*/
-  }
 
   /*openTutorial() {
     this.menu.enable(false);

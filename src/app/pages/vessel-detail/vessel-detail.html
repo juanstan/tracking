@@ -2,13 +2,13 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/app/tabs/speakers"></ion-back-button>
+        <ion-back-button defaultHref="/app/tabs/vessels"></ion-back-button>
       </ion-buttons>
-      <ion-buttons *ngIf="speaker" slot="end">
-        <ion-button (click)="openContact(speaker)">
+      <ion-buttons *ngIf="vessel" slot="end">
+        <ion-button (click)="openContact(vessel)">
           <ion-icon slot="icon-only" ios="call-outline" md="call-sharp"></ion-icon>
         </ion-button>
-        <ion-button (click)="openSpeakerShare(speaker)">
+        <ion-button (click)="openSpeakerShare(vessel)">
           <ion-icon slot="icon-only" ios="share-outline" md="share-sharp"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -16,16 +16,16 @@
   </ion-header>
 
   <div class="speaker-background">
-    <img [src]="speaker?.profilePic" [alt]="speaker?.name">
-    <h2>{{speaker?.name}}</h2>
+    <!--<img [src]="vessel?.profilePic" [alt]="vessel?.name">-->
+    <h2>{{vessel?.name}}</h2>
   </div>
 
   <div class="ion-padding speaker-detail">
-    <p>{{speaker?.about}} Say hello on social media!</p>
+    <p>{{vessel?.name}} Say hello on social media!</p>
 
     <hr>
 
-    <ion-chip color="twitter" button (click)="openExternalUrl('https://twitter.com/' + speaker.twitter)">
+    <!--<ion-chip color="twitter" button (click)="openExternalUrl('https://twitter.com/' + speaker.twitter)">
       <ion-icon name="logo-twitter"></ion-icon>
       <ion-label>Twitter</ion-label>
     </ion-chip>
@@ -38,6 +38,6 @@
     <ion-chip color="instagram" button (click)="openExternalUrl('https://instagram.com/ionicframework')">
       <ion-icon name="logo-instagram"></ion-icon>
       <ion-label>Instagram</ion-label>
-    </ion-chip>
+    </ion-chip>-->
   </div>
 </ion-content>

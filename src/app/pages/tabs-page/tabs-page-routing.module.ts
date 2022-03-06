@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs-page';
-import {SettingsPage} from "../settings/settings";
+import {SettingsPage} from '../settings/settings';
 
 
 const routes: Routes = [
@@ -29,10 +29,10 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('../vessel-list/vessel-list.module').then(m => m.VesselListModule)
           },
-          {
+         /* {
             path: 'session/:sessionId',
             loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
-          },
+          },*/
           {
             path: 'vessel-details/:vesselId',
             loadChildren: () => import('../vessel-detail/vessel-detail.module').then(m => m.VesselDetailModule)

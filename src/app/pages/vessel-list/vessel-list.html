@@ -19,30 +19,31 @@
       <ion-col size="12" size-md="6" *ngFor="let vessel of vessels">
         <ion-card class="speaker-card">
           <ion-card-header>
-            <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/vessel/vessel-details/{{vessel.id}}">
+            <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/vessels/vessel-details/{{vessel.id}}">
               <ion-avatar slot="start">
-                <img [src]="vessel.profilePic" [alt]="vessel.name + ' profile picture'">
+                <!--<img [src]="vessel.profilePic" [alt]="vessel.name + ' profile picture'">-->
               </ion-avatar>
               <ion-label>
                 <h2>{{vessel.name}}</h2>
-                <p>{{vessel.title}}</p>
+                <p>{{vessel.latitude}}</p>
+                <p>{{vessel.longitude}}</p>
               </ion-label>
             </ion-item>
           </ion-card-header>
 
           <ion-card-content>
             <ion-list lines="none">
-              <ion-item *ngFor="let session of vessel.sessions" detail="false" routerLink="/app/tabs/vessel/session/{{vessel.id}}">
+              <!--<ion-item *ngFor="let session of vessel.sessions" detail="false" routerLink="/app/tabs/vessel/session/{{vessel.id}}">
                 <ion-label>
                   <h3>{{session.name}}</h3>
                 </ion-label>
-              </ion-item>
+              </ion-item>-->
 
-              <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{vessel.id}}">
+              <!--<ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{vessel.id}}">
                 <ion-label>
                   <h3>About {{vessel.name}}</h3>
                 </ion-label>
-              </ion-item>
+              </ion-item>-->
             </ion-list>
           </ion-card-content>
         </ion-card>

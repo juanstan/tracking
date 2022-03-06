@@ -1,41 +1,37 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<ion-content class="overlay overlay-show">
   <div class="login-logo">
-    <img src="assets/img/appicon.svg" alt="Ionic logo">
+    <img src="assets/img/marine-logo.png" alt="Ionic logo">
+    <h1 class="title-login">
+      <span>Marine Tracker</span>
+    </h1>
   </div>
 
-  <div class="card">
-    <h4 class="card-header">Login</h4>
-    <div class="card-body">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-          </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item lines="full">
+        <ion-label position="floating" color="primary">Username</ion-label>
+        <ion-input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+        </ion-input>
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-          </div>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="primary">Password</ion-label>
+        <ion-input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+        </ion-input>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
         </div>
-        <div class="form-group">
-          <button [disabled]="loading" class="btn btn-primary">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Login
-          </button>
-          <a routerLink="../register" class="btn btn-link">Register</a>
-        </div>
-      </form>
-    </div>
-  </div>
+      </ion-item>
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary btn-modern">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Login
+        </button>
+        <a routerLink="../register" class="btn btn-link btn-outline btn-primary">Register</a>
+      </div>
+      </ion-list>
+  </form>
 
 </ion-content>

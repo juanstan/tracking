@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import {Vessel} from '../../model/vessel';
 
 @Component({
   selector: 'page-vessel-detail',
@@ -10,10 +11,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   styleUrls: ['./vessel-detail.scss'],
 })
 export class VesselDetailPage {
-  speaker: any;
+  vesselID: number;
+  vessel: Vessel;
 
   constructor(
-    private dataProvider: ConferenceData,
+    // private dataProvider: ConferenceData,
     private route: ActivatedRoute,
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
@@ -21,7 +23,10 @@ export class VesselDetailPage {
   ) {}
 
   ionViewWillEnter() {
-    this.dataProvider.load().subscribe((data: any) => {
+    // tslint:disable-next-line:radix
+    this.vesselID = parseInt(this.route.snapshot.paramMap.get('vesselId'));
+    debugger;
+    /*this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       if (data && data.speakers) {
         for (const speaker of data.speakers) {
@@ -31,7 +36,7 @@ export class VesselDetailPage {
           }
         }
       }
-    });
+    });*/
   }
 
   openExternalUrl(url: string) {
@@ -41,24 +46,21 @@ export class VesselDetailPage {
     );
   }
 
-  async openSpeakerShare(speaker: any) {
+  async openSpeakerShare(vessel: any) {
     const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Share ' + speaker.name,
+      header: 'Share ' + vessel.name,
       buttons: [
         {
           text: 'Copy Link',
           handler: () => {
-            console.log(
-              'Copy link clicked on https://twitter.com/' + speaker.twitter
-            );
-            if (
+            /*if (
               (window as any).cordova &&
               (window as any).cordova.plugins.clipboard
             ) {
               (window as any).cordova.plugins.clipboard.copy(
                 'https://twitter.com/' + speaker.twitter
               );
-            }
+            }*/
           }
         },
         {
@@ -74,26 +76,26 @@ export class VesselDetailPage {
     await actionSheet.present();
   }
 
-  async openContact(speaker: any) {
+  async openContact(vessel: any) {
     const mode = 'ios'; // this.config.get('mode');
 
     const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Contact ' + speaker.name,
+      header: 'Vessel ' + vessel.name,
       buttons: [
         {
-          text: `Email ( ${speaker.email} )`,
+          text: `Position ( ${vessel.email} )`,
           icon: mode !== 'ios' ? 'mail' : null,
           handler: () => {
-            window.open('mailto:' + speaker.email);
+              window.open(`position: ${vessel.longitude}, ${vessel.latitude}`);
           }
         },
-        {
+        /*{
           text: `Call ( ${speaker.phone} )`,
           icon: mode !== 'ios' ? 'call' : null,
           handler: () => {
             window.open('tel:' + speaker.phone);
           }
-        },
+        },*/
         {
           text: 'Cancel',
           role: 'cancel'
