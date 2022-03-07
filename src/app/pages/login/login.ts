@@ -50,9 +50,10 @@ export class LoginPage implements OnInit {
 
     this.accountService.login(this.f.username.value, this.f.password.value).pipe(first())
       .subscribe({
-        next: () => {
-          // get return url from query parameters or default to home page
-          this.router.navigateByUrl('/app/tabs/map');
+        next: async () => {
+          await this.accountService.loadAllData().subscribe(data => {
+            this.router.navigateByUrl('/app/tabs/map');
+          });
         },
         error: response => {
           for (const key in response.error) {

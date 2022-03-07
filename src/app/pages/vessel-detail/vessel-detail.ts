@@ -4,6 +4,7 @@ import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import {Vessel} from '../../model/vessel';
+import {VesselService} from '../../providers/vessel.service';
 
 @Component({
   selector: 'page-vessel-detail',
@@ -15,17 +16,17 @@ export class VesselDetailPage {
   vessel: Vessel;
 
   constructor(
-    // private dataProvider: ConferenceData,
     private route: ActivatedRoute,
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
     public inAppBrowser: InAppBrowser,
+    private vesselService: VesselService
   ) {}
 
   ionViewWillEnter() {
     // tslint:disable-next-line:radix
     this.vesselID = parseInt(this.route.snapshot.paramMap.get('vesselId'));
-    debugger;
+    this.vessel = this.vesselService.getVessel(this.vesselID);
     /*this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       if (data && data.speakers) {

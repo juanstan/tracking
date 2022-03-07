@@ -6,7 +6,10 @@ import {AccountService} from '../../providers/account.service';
 import {AlertService} from '../../shared/services/alert.service';
 
 
-@Component({ templateUrl: 'signup.html' })
+@Component({
+  templateUrl: 'signup.html',
+  styleUrls: ['./signup.scss'],
+})
 export class SignupComponent implements OnInit {
   form: FormGroup;
   loading = false;
@@ -28,6 +31,7 @@ export class SignupComponent implements OnInit {
     this.form = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      email: ['', Validators.required],
       passwordConformation: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });

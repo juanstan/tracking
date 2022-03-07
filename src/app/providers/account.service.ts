@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {catchError, map, take} from 'rxjs/operators';
+import {map, take} from 'rxjs/operators';
 
 import {environment} from '../../environments/environment';
 import {User} from '../model/user';
@@ -9,8 +9,6 @@ import {LoginResult} from '../model/auth/login-result';
 import {StorageService} from '../core/services/storage.service';
 import {Observable} from 'rxjs';
 import {VesselService} from './vessel.service';
-import {Vessel} from "../model/vessel";
-import {any} from "codelyzer/util/function";
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -54,10 +52,12 @@ export class AccountService {
       );
   }
 
-  async logout() {
+  logout() {
     // remove user from local storage and set current user to null
-    return await this.http.post(`${environment.apiUrl}/auth/logout`, {}).toPromise().then(async () => {
-      this.storageService.remove('login').then(() => this.router.navigate(['/login']));
+    return this.http.post(`${environment.apiUrl}/auth/logout`, {}).subscribe(() => {
+      this.storageService.remove('login').then(
+        () => this.router.navigate(['/login'])
+      );
     });
   }
 

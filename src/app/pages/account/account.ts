@@ -74,7 +74,6 @@ export class AccountPage implements AfterViewInit, OnInit {
 
   logout() {
     this.accountService.logout();
-    this.router.navigateByUrl('/login');
   }
 
   support() {

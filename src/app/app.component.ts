@@ -126,7 +126,6 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.accountService.logout();
-    this.router.navigateByUrl('/login');
   }
     /*this.userData.logout().then(() => {
       return this.router.navigateByUrl('/app/tabs/maps');
