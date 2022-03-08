@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {JwtInterceptor} from './core/interceptor/jwt.interceptor';
+import {AlertComponent} from './shared/components/alert/alert.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import {JwtInterceptor} from './core/interceptor/jwt.interceptor';
       enabled: environment.production
     })
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, AlertComponent],
   providers: [
     InAppBrowser,
     SplashScreen,

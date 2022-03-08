@@ -10,11 +10,16 @@
 <ion-content>
   <div *ngIf="user?.email" class="ion-padding-top ion-text-center">
     <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
-    <h2>{{user.email}}</h2>
+    <h2>{{user.email}}</h2> {{user | json}} -  <h2>{{user.first_mame}}</h2>
     <ion-list inset>
-      <ion-item (click)="updatePicture()">Update Picture</ion-item>
+      <!--<ion-item (click)="updatePicture()">Update Picture</ion-item>
       <ion-item (click)="changeUsername()">Change Username</ion-item>
       <ion-item (click)="changePassword()">Change Password</ion-item>
+      <ion-item (click)="support()">Support</ion-item>
+      <ion-item (click)="logout()">Logout</ion-item>-->
+      <ion-item>{{user.first_mame}}</ion-item>
+      <ion-item>{{user.last_mame}}</ion-item>
+      <ion-item>Change Password</ion-item>
       <ion-item (click)="support()">Support</ion-item>
       <ion-item (click)="logout()">Logout</ion-item>
     </ion-list>

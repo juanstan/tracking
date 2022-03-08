@@ -2,6 +2,7 @@
   "name": "ionic-tracking-app",
   "type": "angular",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   }
 }

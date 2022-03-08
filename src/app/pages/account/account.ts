@@ -11,7 +11,7 @@ import { snapshot } from '../../shared/utils/snapshot.util';
   templateUrl: 'account.html',
   styleUrls: ['./account.scss'],
 })
-export class AccountPage implements AfterViewInit, OnInit {
+export class AccountPage implements OnInit {
   password: string;
   email: string;
   user: User;
@@ -25,10 +25,6 @@ export class AccountPage implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.user = this.accountService.userValue;
-  }
-
-  ngAfterViewInit() {
-    this.getEmail();
   }
 
   updatePicture() {

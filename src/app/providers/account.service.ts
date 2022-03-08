@@ -21,15 +21,16 @@ export class AccountService {
     private http: HttpClient,
     private storageService: StorageService,
     private vesselService: VesselService
-  ) {
-
-
-  }
+  ) { }
 
   async init(): Promise<LoginResult> {
     return await this.storageService.get('login').then(
       login => this.loginObj = login
     );
+  }
+
+  public reset() {
+    this.loginObj = null;
   }
 
   public get userValue(): User {
@@ -56,7 +57,10 @@ export class AccountService {
     // remove user from local storage and set current user to null
     return this.http.post(`${environment.apiUrl}/auth/logout`, {}).subscribe(() => {
       this.storageService.remove('login').then(
-        () => this.router.navigate(['/login'])
+        () => {
+          this.reset();
+          return this.router.navigate(['/login']);
+        }
       );
     });
   }
