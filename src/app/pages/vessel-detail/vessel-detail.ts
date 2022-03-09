@@ -26,7 +26,7 @@ interface LocalFile {
 export class VesselDetailPage {
   vesselID: number;
   vessel: Vessel;
-  images: LocalFile[] = [];
+  image: LocalFile = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -127,7 +127,6 @@ export class VesselDetailPage {
 
 
   async loadFiles() {
-    this.images = [];
 
     const loading = await this.loadingCtrl.create({
       message: 'Loading data...',
@@ -163,11 +162,11 @@ export class VesselDetailPage {
         directory: Directory.Data,
       });
 
-      this.images.push({
+      this.image = {
         name: f,
         path: filePath,
         data: `data:image/jpeg;base64,${readFile.data}`,
-      });
+      };
     }
   }
 
@@ -249,8 +248,8 @@ export class VesselDetailPage {
     });
     await loading.present();
 
-    // Use your own API!
-    const url = 'http://localhost:8888/images/upload.php';
+    // Use marine tracking API!
+    const url = 'http://localhost:8100/images/upload.php';
 
     this.http.post(url, formData)
       .pipe(

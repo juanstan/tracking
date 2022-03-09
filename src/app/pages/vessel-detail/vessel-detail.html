@@ -15,7 +15,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="speaker-background">
+  <div class="speaker-background" [style]="{ background: image.data ? 'center / cover url('+image.data+') no-repeat' : ''}">
     <!--<img [src]="vessel?.profilePic" [alt]="vessel?.name">-->
     <h2>{{vessel?.name}}</h2>
     <ion-button fill="clear" expand="full" color="light" (click)="selectImage()">
@@ -26,9 +26,7 @@
 
   <div class="ion-padding speaker-detail">
     <p>{{vessel?.name}} Say hello at ({{vessel?.lat}}!,{{vessel?.lng}})</p>
-
     <hr>
-
     <!--<ion-chip color="twitter" button (click)="openExternalUrl('https://twitter.com/' + speaker.twitter)">
       <ion-icon name="logo-twitter"></ion-icon>
       <ion-label>Twitter</ion-label>
@@ -44,24 +42,6 @@
       <ion-label>Instagram</ion-label>
     </ion-chip>-->
   </div>
-
-
-  <ion-list>
-    <ion-item *ngFor="let file of images; let i = index">
-      <ion-thumbnail slot="start">
-        <ion-img [src]="file.data"></ion-img>
-      </ion-thumbnail>
-      <ion-label class="ion-text-wrap">
-        {{ file.name }}
-      </ion-label>
-      <ion-button slot="end" fill="clear" (click)="startUpload(file)">
-        <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
-      </ion-button>
-      <ion-button slot="end" fill="clear" (click)="deleteImage(file)">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
 </ion-content>
 
 <ion-footer>

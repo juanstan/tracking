@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ConferenceData } from '../../providers/conference-data';
 import {VesselService} from '../../providers/vessel.service';
 
 @Component({
@@ -10,15 +9,9 @@ import {VesselService} from '../../providers/vessel.service';
 export class VesselListPage {
   vessels: any[] = [];
 
-  constructor(
-    /*public confData: ConferenceData*/
-    private vesselService: VesselService
-  ) {}
+  constructor(private vesselService: VesselService) {}
 
   ionViewDidEnter() {
-    /*this.confData.getVessels().subscribe((vessels: any[]) => {
-      this.vessels = vessels;
-    });*/
     this.vessels = this.vesselService.vessels;
   }
 }
