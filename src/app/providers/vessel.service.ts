@@ -30,7 +30,7 @@ export class VesselService {
   }
 
   public getVessel(id): Vessel {
-    return this.vessels.find(vessel => vessel.id === id);
+    return this.vessels?.find(vessel => vessel.id === id);
   }
 
   public requestMyVessels(): Observable<Vessel[]> {

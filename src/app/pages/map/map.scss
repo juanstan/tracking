@@ -1,15 +1,17 @@
-.map-canvas {
+.map-container {
   position: absolute;
-
-  height: 100%;
-  width: 100%;
-
-  background-color: transparent;
-
-  opacity: 0;
-  transition: opacity 150ms ease-in;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 30px;
 }
 
-.show-map {
-  opacity: 1;
+.map-frame {
+  border: 2px solid black;
+  height: 100%;
+}
+
+#map {
+  height: 100%;
 }

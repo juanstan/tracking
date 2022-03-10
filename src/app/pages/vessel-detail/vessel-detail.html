@@ -15,16 +15,16 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="speaker-background" [style]="{ background: image.data ? 'center / cover url('+image.data+') no-repeat' : ''}">
+  <div class="vessel-background" [style]="{ background: image?.data ? 'center / cover url('+image.data+') no-repeat' : ''}">
     <!--<img [src]="vessel?.profilePic" [alt]="vessel?.name">-->
     <h2>{{vessel?.name}}</h2>
-    <ion-button fill="clear" expand="full" color="light" (click)="selectImage()">
+    <ion-button class="img-link" fill="clear" expand="full" color="light" (click)="selectImage()">
       <ion-icon slot="start" name="camera"></ion-icon>
       Select Image
     </ion-button>
   </div>
 
-  <div class="ion-padding speaker-detail">
+  <div class="ion-padding vessel-detail">
     <p>{{vessel?.name}} Say hello at ({{vessel?.lat}}!,{{vessel?.lng}})</p>
     <hr>
     <!--<ion-chip color="twitter" button (click)="openExternalUrl('https://twitter.com/' + speaker.twitter)">

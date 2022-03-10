@@ -17,7 +17,7 @@ ion-toolbar ion-menu-button {
   --color: white;
 }
 
-.speaker-background {
+.vessel-background {
   position: relative;
   display: flex;
   padding-top: var(--ion-safe-area-top);
@@ -25,26 +25,29 @@ ion-toolbar ion-menu-button {
   justify-content: center;
   flex-direction: column;
   height: calc(250px + var(--ion-safe-area-top));
+  .img-link{
+   opacity: 0.1;
+  }
 
 }
 
-.speaker-background img {
+.vessel-background img {
   width: 70px;
   border-radius: 50%;
   margin-top: calc(-1 * var(--ion-safe-area-top));
 }
 
-.speaker-background h2 {
+.vessel-background h2 {
   position: absolute;
   bottom: 10px;
   color: white;
 }
 
-.md .speaker-background {
+.md .vessel-background {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
 }
 
-.ios .speaker-background {
+.ios .vessel-background {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 }
 
@@ -52,12 +55,12 @@ ion-toolbar ion-menu-button {
  * Speaker Details
  */
 
-.speaker-detail p {
+.vessel-detail p {
   margin-left: 6px;
   margin-right: 6px;
 }
 
-.speaker-detail hr {
+.vessel-detail hr {
   margin-top: 20px;
   margin-bottom: 20px;
   background: var(--ion-color-step-150, #d7d8da);

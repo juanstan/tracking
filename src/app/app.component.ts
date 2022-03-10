@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
       return this.router.navigateByUrl('/login');
     }
 
-    this.accountService.loadAllData().subscribe();
+    await this.accountService.loadAllData().subscribe();
 
     return;
     /*return this.userData.isLoggedIn().then(loggedIn => {

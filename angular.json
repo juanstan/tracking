@@ -39,7 +39,11 @@
               {
                 "input": "src/global.scss",
                 "inject": true
-              }
+              },
+              {
+                "input": "./node_modules/leaflet/dist/leaflet.css",
+                "inject": true
+              },
             ],
             "scripts": [],
             "vendorChunk": true,
