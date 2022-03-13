@@ -1,8 +1,8 @@
 export class Vessel {
   id: number;
   name: string;
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
   created_at: Date;
   updated_at: Date;
 }

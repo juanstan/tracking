@@ -41,9 +41,13 @@
                 "inject": true
               },
               {
-                "input": "./node_modules/leaflet/dist/leaflet.css",
+                "input": "node_modules/leaflet/dist/leaflet.css",
                 "inject": true
               },
+              {
+                "input": "node_modules/mapbox-gl/dist/mapbox-gl.css",
+                "inject": true
+              }
             ],
             "scripts": [],
             "vendorChunk": true,

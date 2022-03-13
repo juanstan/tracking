@@ -9,7 +9,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UserData } from './providers/user-data';
 import {AccountService} from './providers/account.service';
 import {StorageService} from './core/services/storage.service';
-import {VesselService} from "./providers/vessel.service";
 
 @Component({
   selector: 'app-root',
@@ -19,11 +18,11 @@ import {VesselService} from "./providers/vessel.service";
 })
 export class AppComponent implements OnInit {
   appPages = [
-    {
+    /*{
       title: 'Vessels',
       url: '/app/tabs/vessels',
       icon: 'boat'
-    },
+    },*/
     {
       title: 'About Marine Tracker',
       url: '/app/tabs/about',
@@ -55,7 +54,6 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     this.checkLoginStatus();
-    // this.listenForLoginEvents();
 
     this.swUpdate.available.subscribe(async res => {
       const toast = await this.toastCtrl.create({
@@ -96,44 +94,11 @@ export class AppComponent implements OnInit {
     await this.accountService.loadAllData().subscribe();
 
     return;
-    /*return this.userData.isLoggedIn().then(loggedIn => {
-      return this.updateLoggedInStatus(loggedIn);
-    });*/
+
   }
-
-  /*updateLoggedInStatus(loggedIn: boolean) {
-    setTimeout(() => {
-      this.loggedIn = loggedIn;
-      if (!loggedIn) {
-        this.router.navigateByUrl('/login');
-      }
-    }, 300);
-  }
-
-  listenForLoginEvents() {
-    window.addEventListener('user:login', () => {
-      this.updateLoggedInStatus(true);
-    });
-
-    window.addEventListener('user:signup', () => {
-      this.updateLoggedInStatus(true);
-    });
-
-    window.addEventListener('user:logout', () => {
-      this.updateLoggedInStatus(false);
-    });
-  }*/
 
   logout() {
     this.accountService.logout();
   }
-    /*this.userData.logout().then(() => {
-      return this.router.navigateByUrl('/app/tabs/maps');
-    });*/
 
-  /*openTutorial() {
-    this.menu.enable(false);
-    // this.storage.set('ion_did_tutorial', false);
-    this.router.navigateByUrl('/login');
-  }*/
 }
