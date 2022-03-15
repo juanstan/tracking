@@ -18,11 +18,11 @@ import {StorageService} from './core/services/storage.service';
 })
 export class AppComponent implements OnInit {
   appPages = [
-    /*{
-      title: 'Vessels',
-      url: '/app/tabs/vessels',
-      icon: 'boat'
-    },*/
+    {
+      title: 'Account',
+      url: '/app/tabs/account',
+      icon: 'person'
+    },
     {
       title: 'About Marine Tracker',
       url: '/app/tabs/about',

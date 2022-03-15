@@ -5,12 +5,13 @@ import {catchError, map} from 'rxjs/operators';
 
 import {environment} from '../../environments/environment';
 import {StorageService} from '../core/services/storage.service';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Vessel} from '../model/vessel';
 
 @Injectable({ providedIn: 'root' })
 export class VesselService {
   public vessels: Vessel[];
+  public vessels$: Observable<Vessel[]>;
 
   constructor(
     private router: Router,
@@ -27,6 +28,11 @@ export class VesselService {
 
   public set allVessels(vessels) {
     this.vessels = vessels;
+    this.vessels$ = of(vessels);
+  }
+
+  public getVesselsObservable(): Observable<Vessel[]> {
+    return this.vessels$;
   }
 
   public getVessel(id): Vessel {

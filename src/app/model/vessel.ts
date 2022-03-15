@@ -3,6 +3,7 @@ export class Vessel {
   name: string;
   lat: number;
   lng: number;
+  img: string;
   created_at: Date;
   updated_at: Date;
 }

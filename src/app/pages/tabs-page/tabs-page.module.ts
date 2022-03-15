@@ -11,6 +11,7 @@ import { ScheduleModule } from '../schedule/schedule.module';
 import { SessionDetailModule } from '../session-detail/session-detail.module';
 import { VesselDetailModule } from '../vessel-detail/vessel-detail.module';
 import { VesselListModule } from '../vessel-list/vessel-list.module';
+import {AccountModule} from '../account/account.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { VesselListModule } from '../vessel-list/vessel-list.module';
     SessionDetailModule,
     VesselDetailModule,
     VesselListModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    AccountModule
   ],
   declarations: [
     TabsPage,

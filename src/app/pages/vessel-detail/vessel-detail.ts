@@ -9,6 +9,7 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { HttpClient } from '@angular/common/http';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { finalize } from 'rxjs/operators';
+import { Storage } from '@ionic/storage';
 
 const IMAGE_DIR = 'stored-images';
 
@@ -26,6 +27,7 @@ interface LocalFile {
 export class VesselDetailPage {
   vesselID: number;
   vessel: Vessel;
+  vessels: Vessel[];
   image: LocalFile = null;
 
   constructor(
@@ -37,13 +39,15 @@ export class VesselDetailPage {
     private plt: Platform,
     private http: HttpClient,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private storageService: Storage,
   ) {}
 
   ionViewWillEnter() {
     // tslint:disable-next-line:radix
     this.vesselID = parseInt(this.route.snapshot.paramMap.get('vesselId'));
     this.vessel = this.vesselService.getVessel(this.vesselID);
+    this.vessels = this.vesselService.allVessels;
     this.loadFiles();
     /*this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
@@ -167,6 +171,15 @@ export class VesselDetailPage {
         path: filePath,
         data: `data:image/jpeg;base64,${readFile.data}`,
       };
+
+      this.vessels = this.vessels.map(vessel => {
+        if (vessel.id === this.vessel.id) {
+          vessel.img = this.image.data;
+        }
+        return  vessel;
+      });
+      this.storageService.set('vessels', this.vessels);
+
     }
   }
 

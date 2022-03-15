@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-// import Swiper from 'swiper';
 import {AlertService} from '../../shared/services/alert.service';
 import {Interest} from '../../model/interest';
 
@@ -13,13 +12,11 @@ import {Interest} from '../../model/interest';
   templateUrl: './settings.html',
   styleUrls: ['./settings.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage {
   form: FormGroup;
   submitted = false;
   loading = false;
   interests: Interest[];
-  /*showSkip = true;
-  private slides: Swiper;*/
 
   constructor(
     public menu: MenuController,
@@ -30,19 +27,15 @@ export class SettingsPage implements OnInit {
     private alertService: AlertService
   ) {
     this.interests = [
-      { name: 'Nautical', value: 'nautical' },
-      { name: 'School', value: 'school' },
+      { name: 'Nautical', value: 'nautical'},
       { name: 'Test', value: 'test' }
     ];
-  }
-
-  ngOnInit() {
     this.form = this.formBuilder.group({
-      latitude: ['', Validators.required],
-      longitude: ['', Validators.required],
-      mapTemplate: ['', Validators.required],
+      latitude: [''],
+      longitude: [''],
+      mapBoxTemplate: ['', Validators.required],
       mode: ['', Validators.required],
-      interest: this.formBuilder.array([])
+      // interest: this.formBuilder.array([])
     });
   }
 
@@ -62,33 +55,16 @@ export class SettingsPage implements OnInit {
     }
   }
 
-/*  startApp() {
-    this.router
-      .navigateByUrl('/app/tabs/map', { replaceUrl: true })
-      .then(() => this.storage.set('ion_did_tutorial', true));
-  }*/
-
-  /*setSwiperInstance(swiper: Swiper) {
-    this.slides = swiper;
-  }
-
-  onSlideChangeStart() {
-    this.showSkip = !this.slides.isEnd;
-    this.cd.detectChanges();
-  }*/
-
   ionViewWillEnter() {
     this.storage.get('settings').then(settings => {
-     console.log(settings);
+      for (const settingKey in settings) {
+        if (settings.hasOwnProperty(settingKey)) {
+          this.form.controls[settingKey]?.setValue(settings[settingKey]);
+        }
+      }
     });
-
-    // this.menu.enable(false);
   }
 
-  ionViewDidLeave() {
-    // enable the root left menu when leaving the tutorial page
-    // this.menu.enable(true);
-  }
 
   onSubmit() {
     this.submitted = true;
@@ -100,20 +76,6 @@ export class SettingsPage implements OnInit {
     }
 
     this.loading = true;
-    console.log(this.form.value);
-    debugger;
-    /*this.loading = true;
-    this.accountService.register(this.form.value)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-          this.router.navigate(['../login'], { relativeTo: this.route });
-        },
-        error: error => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      });*/
+    this.storage.set('settings', this.form.value);
   }
 }

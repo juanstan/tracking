@@ -34,7 +34,7 @@
       </ion-radio-group>
     </ion-list>
     <!-- Checkboxes -->
-    <ion-list lines="full">
+    <!--<ion-list lines="full">
       <ion-list-header>
         <ion-label>Points of Interests</ion-label>
       </ion-list-header>
@@ -42,11 +42,11 @@
         <ion-label>{{interest.name}}</ion-label>
         <ion-checkbox [value]="interest.value" (ionChange)="onCheckboxChange($event)" class="form-control"></ion-checkbox>
       </ion-item>
-    </ion-list>
+    </ion-list>-->
     <ion-item>
       <ion-label>Prefer Template</ion-label>
-      <ion-select value="satellite" okText="Okay" cancelText="Dismiss" formControlName="mapTemplate" class="form-control">
-        <ion-select-option value="satellite">Satellite</ion-select-option>
+      <ion-select value="satellite" okText="Okay" cancelText="Dismiss" formControlName="mapBoxTemplate" class="form-control">
+        <ion-select-option value="satellite" >Satellite</ion-select-option>
         <ion-select-option value="navigation">Navigation</ion-select-option>
         <ion-select-option value="streets">Streets</ion-select-option>
       </ion-select>

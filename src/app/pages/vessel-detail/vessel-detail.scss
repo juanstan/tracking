@@ -8,13 +8,13 @@ ion-toolbar {
   left: 0;
   right: 0;
   --background: transparent;
-  --color: white;
+  --color: black;
 }
 
 ion-toolbar ion-button,
 ion-toolbar ion-back-button,
 ion-toolbar ion-menu-button {
-  --color: white;
+  --color: black;
 }
 
 .vessel-background {
@@ -24,10 +24,11 @@ ion-toolbar ion-menu-button {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: calc(250px + var(--ion-safe-area-top));
-  .img-link{
-   opacity: 0.1;
-  }
+  // height: calc(250px + var(--ion-safe-area-top));
+  border-radius: 175px;
+  width: 200px;
+  height: 200px;
+  margin: 10px auto;
 
 }
 
@@ -64,4 +65,8 @@ ion-toolbar ion-menu-button {
   margin-top: 20px;
   margin-bottom: 20px;
   background: var(--ion-color-step-150, #d7d8da);
+}
+
+.vessel-name {
+  margin-top: 40px !important;
 }

@@ -58,6 +58,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'account',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../account/account.module').then(m => m.AccountModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/app/tabs/schedule',
         pathMatch: 'full'
