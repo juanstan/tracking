@@ -31,6 +31,7 @@ export class AccountService {
 
   public reset() {
     this.loginObj = null;
+    this.storageService.clear();
   }
 
   public get userValue(): User {
@@ -118,7 +119,6 @@ export class AccountService {
       take(1),
       map((data: any) => {
         this.vesselService.allVessels = data.data.vessels;
-        this.storageService.set('vessels', data.data.vessels);
       })
     );
   }

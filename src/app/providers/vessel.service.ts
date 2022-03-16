@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 import {environment} from '../../environments/environment';
-import {StorageService} from '../core/services/storage.service';
-import {Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Vessel} from '../model/vessel';
 
 @Injectable({ providedIn: 'root' })
 export class VesselService {
   public vessels: Vessel[];
-  public vessels$: Observable<Vessel[]>;
+  public vessels$ = new BehaviorSubject<Vessel[]>(null);
 
   constructor(
     private router: Router,
-    private http: HttpClient,
-    private storageService: StorageService
+    private http: HttpClient
   ) {
-
+    this.vessels$.subscribe(vessels => {
+      this.vessels = vessels;
+    });
 
   }
 
@@ -27,8 +27,7 @@ export class VesselService {
   }
 
   public set allVessels(vessels) {
-    this.vessels = vessels;
-    this.vessels$ = of(vessels);
+    this.vessels$.next(vessels);
   }
 
   public getVesselsObservable(): Observable<Vessel[]> {

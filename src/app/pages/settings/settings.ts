@@ -1,10 +1,13 @@
-import {Component, ChangeDetectorRef, OnInit} from '@angular/core';
+import {Component, ChangeDetectorRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import {AlertService} from '../../shared/services/alert.service';
 import {Interest} from '../../model/interest';
+import {VesselService} from "../../providers/vessel.service";
+import {Vessel} from "../../model/vessel";
+/*import {AgmMap, MapsAPILoader} from '@agm/core';*/
 
 
 @Component({
@@ -17,6 +20,7 @@ export class SettingsPage {
   submitted = false;
   loading = false;
   interests: Interest[];
+  // @ViewChild(AgmMap, {static: true}) public agmMap: AgmMap;
 
   constructor(
     public menu: MenuController,
@@ -24,7 +28,9 @@ export class SettingsPage {
     public storage: Storage,
     private cd: ChangeDetectorRef,
     private formBuilder: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private vesselService: VesselService,
+    // private mapsAPILoader: MapsAPILoader
   ) {
     this.interests = [
       { name: 'Nautical', value: 'nautical'},
@@ -37,6 +43,16 @@ export class SettingsPage {
       mode: ['', Validators.required],
       // interest: this.formBuilder.array([])
     });
+    this.getCurrentAddress();
+    this.vesselService.allVessels = [...this.vesselService.vessels, {
+      id: 1,
+      img: null,
+      lat: 50.751325,
+      lng: -1.716767,
+      name: 'The Pirate Ship',
+      updated_at: null,
+      created_at: null
+    } as Vessel];
   }
 
   onCheckboxChange(e) {
@@ -74,8 +90,36 @@ export class SettingsPage {
     if (this.form.invalid) {
       return;
     }
-
     this.loading = true;
     this.storage.set('settings', this.form.value);
+  }
+
+  getCurrentAddress() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        if (position) {
+          this.form.controls['latitude']?.setValue(position.coords.latitude);
+          this.form.controls['longitude']?.setValue(position.coords.longitude);
+          // this.getAddress = ( this.form.value.latitude, this.form.value.longitude);
+          /*this.mapsAPILoader.load().then(() => {
+            const geocoder = new google.maps.Geocoder();
+            const latlng = {
+              lat: this.form.value.latitud,
+              lng: this.form.value.longitude
+            };
+            geocoder.geocode({
+              'location': latlng
+            }, function(results) {
+              if (results[0]) {
+                this.currentLocation = results[0].formatted_address;
+                console.log(this.assgin);
+              } else {
+                console.log('Not found');
+              }
+            });
+          });*/
+        }
+      });
+    }
   }
 }

@@ -34,21 +34,18 @@ export class MapPage {
 
   constructor(public vesselService: VesselService, public storage: Storage) {}
 
-  ionViewWillEnter() {
-    this.vessels$ = this.vesselService.getVesselsObservable();
-    this.vessels$.subscribe(async (vessels) => {
-      await this.initMap();
-      this.drawMap();
-      this.map?.invalidateSize(true);
-      vessels.map(vessel => {
-        this.addVesselsMark(vessel);
-      });
+  async ionViewWillEnter() {
+    await this.initMap();
+    this.drawMap();
+    this.map?.invalidateSize(true);
+    this.vesselService.allVessels?.map(vessel => {
+      this.addVesselsMark(vessel);
     });
   }
 
   async getDefaultMapValues(): Promise<void> {
     await this.storage.get('settings').then( (settings: Settings) => {
-      const sourceMapBox = settings.mapBoxTemplate;
+      const sourceMapBox = settings?.mapBoxTemplate || null;
       let sourceMapSelected = {};
       switch (sourceMapBox) {
         case 'navigation':

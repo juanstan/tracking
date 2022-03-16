@@ -5,6 +5,7 @@ import { SwiperModule } from 'swiper/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SettingsPage } from './settings';
 import { SettingsPageRoutingModule } from './settings-routing.module';
+import {AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 @NgModule({
   imports: [
@@ -12,9 +13,13 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
     IonicModule,
     SettingsPageRoutingModule,
     SwiperModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCbklWdlnxxvJeLQkjEYelVciCT0EUMsv0'
+    }),
   ],
   declarations: [SettingsPage],
   entryComponents: [SettingsPage],
+  providers: [GoogleMapsAPIWrapper ]
 })
 export class SettingsModule {}
