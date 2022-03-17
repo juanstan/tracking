@@ -5,8 +5,8 @@ import { MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import {AlertService} from '../../shared/services/alert.service';
 import {Interest} from '../../model/interest';
-import {VesselService} from "../../providers/vessel.service";
-import {Vessel} from "../../model/vessel";
+import {VesselService} from '../../providers/vessel.service';
+import {Vessel} from '../../model/vessel';
 /*import {AgmMap, MapsAPILoader} from '@agm/core';*/
 
 
@@ -37,22 +37,22 @@ export class SettingsPage {
       { name: 'Test', value: 'test' }
     ];
     this.form = this.formBuilder.group({
-      latitude: [''],
-      longitude: [''],
+      initialLat: [''],
+      initialLng: [''],
       mapBoxTemplate: ['', Validators.required],
       mode: ['', Validators.required],
       // interest: this.formBuilder.array([])
     });
     this.getCurrentAddress();
-    this.vesselService.allVessels = [...this.vesselService.vessels, {
-      id: 1,
+    /*this.vesselService.allVessels = [...this.vesselService.vessels, {
+      id: 2,
       img: null,
       lat: 50.751325,
       lng: -1.716767,
       name: 'The Pirate Ship',
       updated_at: null,
       created_at: null
-    } as Vessel];
+    } as Vessel];*/
   }
 
   onCheckboxChange(e) {
@@ -98,8 +98,8 @@ export class SettingsPage {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         if (position) {
-          this.form.controls['latitude']?.setValue(position.coords.latitude);
-          this.form.controls['longitude']?.setValue(position.coords.longitude);
+          this.form.controls['initialLat']?.setValue(position.coords.latitude);
+          this.form.controls['initialLng']?.setValue(position.coords.longitude);
           // this.getAddress = ( this.form.value.latitude, this.form.value.longitude);
           /*this.mapsAPILoader.load().then(() => {
             const geocoder = new google.maps.Geocoder();

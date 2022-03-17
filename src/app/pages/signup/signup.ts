@@ -29,10 +29,10 @@ export class SignupComponent implements OnInit {
       return;
     }
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       email: ['', Validators.required],
-      passwordConformation: ['', Validators.required],
+      password_confirm: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }

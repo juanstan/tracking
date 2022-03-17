@@ -10,12 +10,12 @@
     <ion-list>
       <ion-item lines="full">
         <ion-label color="light" position="fixed">First Name</ion-label>
-        <ion-input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+        <ion-input type="text" formControlName="first_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
         </ion-input>
       </ion-item>
       <ion-item lines="full">
         <ion-label color="light" position="fixed">Last Name</ion-label>
-        <ion-input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+        <ion-input type="text" formControlName="last_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
         </ion-input>
       </ion-item>
       <ion-item lines="full">
@@ -30,16 +30,16 @@
       </ion-item>
       <ion-item lines="full">
         <ion-label color="light" position="fixed">Password Confirmation</ion-label>
-        <ion-input type="text" formControlName="passwordConformation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+        <ion-input type="text" formControlName="password_confirm" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password_confirm.errors }">
         </ion-input>
       </ion-item>
     </ion-list>
 
     <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-      <div *ngIf="f.firstName.errors.required">First Name is required</div>
+      <div *ngIf="f.first_name.errors.required">First Name is required</div>
     </div>
     <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-      <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+      <div *ngIf="f.last_name.errors.required">Last Name is required</div>
     </div>
     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
       <div *ngIf="f.email.errors.required">Email is required</div>
@@ -47,8 +47,8 @@
     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
       <div *ngIf="f.password.errors.required">Password is required</div>
     </div>
-    <div *ngIf="submitted && f.passwordConformation.errors" class="invalid-feedback">
-      <div *ngIf="f.passwordConformation.errors.required">Pasword confirmation is required</div>
+    <div *ngIf="submitted && f.password_confirm.errors" class="invalid-feedback">
+      <div *ngIf="f.password_confirm.errors.required">Password confirmation is required</div>
     </div>
 
     <div class="form-btn-login">

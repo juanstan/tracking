@@ -49,7 +49,7 @@
                 "inject": true
               }
             ],
-            "scripts": [],
+            "scripts": ["node_modules/pusher-js/dist/web/pusher.min.js"],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,

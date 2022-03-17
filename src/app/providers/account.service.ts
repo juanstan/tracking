@@ -9,12 +9,15 @@ import {LoginResult} from '../model/auth/login-result';
 import {StorageService} from '../core/services/storage.service';
 import {Observable} from 'rxjs';
 import {VesselService} from './vessel.service';
+import Echo from 'laravel-echo';
+
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
   public loginObj: LoginResult;
   public user: User;
   public token: string;
+  echo: any = null;
 
   constructor(
     private router: Router,
@@ -25,7 +28,12 @@ export class AccountService {
 
   async init(): Promise<LoginResult> {
     return await this.storageService.get('login').then(
-      login => this.loginObj = login
+      login => {
+        this.loginObj = login;
+        this.user = login.user;
+        this.listenData();
+        return this.loginObj;
+      }
     );
   }
 
@@ -121,5 +129,28 @@ export class AccountService {
         this.vesselService.allVessels = data.data.vessels;
       })
     );
+  }
+
+  listenData() {
+    this.echo = new Echo({
+      broadcaster: 'pusher',
+      key: 'myKey',
+      wsHost: 'webping.geotracks.co.uk',
+      wsPort: 8443,
+      disableStats: true,
+      encrypted: false,
+      forceTLS: false,
+      enabledTransports: ['ws'],
+      namespace: 'Libs.Events'
+    });
+
+    /*this.echo.connector.socket.on('connect', () => console.log('CONNECTED'));
+    this.echo.connector.socket.on('reconnecting', () => console.log('CONNECTING'));
+    this.echo.connector.socket.on('disconnect', () => console.log('DISCONNECTED'));*/
+
+    this.echo.channel(`MT-User-${this.user.id}`)
+      .listen('position', (data) => {
+        console.log(data);
+      });
   }
 }

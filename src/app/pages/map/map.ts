@@ -26,7 +26,7 @@ export class MapPage {
     zoomOffset: -1,
     accessToken: environment.mapbox.accessToken,
   };
-  readonly initialState = {
+  initialState  = {
     lng: -1.807323,
     lat: 50.253132,
     zoom: 8
@@ -46,6 +46,8 @@ export class MapPage {
   async getDefaultMapValues(): Promise<void> {
     await this.storage.get('settings').then( (settings: Settings) => {
       const sourceMapBox = settings?.mapBoxTemplate || null;
+      this.initialState.lat = settings?.initialLat || this.initialState.lat;
+      this.initialState.lng = settings?.initialLng || this.initialState.lng;
       let sourceMapSelected = {};
       switch (sourceMapBox) {
         case 'navigation':

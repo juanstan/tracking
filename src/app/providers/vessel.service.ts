@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-
+import Echo from 'laravel-echo';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Vessel} from '../model/vessel';
+
 
 @Injectable({ providedIn: 'root' })
 export class VesselService {
@@ -43,6 +44,7 @@ export class VesselService {
       map(vessels => vessels)
     );
   }
+
 
   /*getById(id: string) {
     return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
