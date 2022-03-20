@@ -29,10 +29,12 @@ export class AccountService {
   async init(): Promise<LoginResult> {
     return await this.storageService.get('login').then(
       login => {
-        this.loginObj = login;
+        if (!login?.user) {
+          return this.logout();
+        }
         this.user = login.user;
         this.listenData();
-        return this.loginObj;
+        return this.loginObj = login;
       }
     );
   }
@@ -136,7 +138,7 @@ export class AccountService {
       broadcaster: 'pusher',
       key: 'myKey',
       wsHost: 'webping.geotracks.co.uk',
-      wsPort: 8443,
+      wsPort: 8450,
       disableStats: true,
       encrypted: false,
       forceTLS: false,
@@ -149,8 +151,15 @@ export class AccountService {
     this.echo.connector.socket.on('disconnect', () => console.log('DISCONNECTED'));*/
 
     this.echo.channel(`MT-User-${this.user.id}`)
-      .listen('position', (data) => {
+      .listen('TrackingPing', (data) => {
         console.log(data);
+        this.vesselService.allVessels = this.vesselService.allVessels.map(vessel => {
+          if (vessel.id === data.vesselId) {
+            vessel.lat = data.lat;
+            vessel.lng = data.lng;
+          }
+          return vessel;
+        });
       });
   }
 }

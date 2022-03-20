@@ -21,7 +21,7 @@
           <ion-card-header>
             <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/vessels/vessel-details/{{vessel.id}}">
               <ion-label>
-                <span class="vessel-background" [style]="{ background: vessel.img ? 'center / cover url('+vessel.img+') no-repeat' : '', float: 'left'}"></span>
+                <span class="vessel-background" [style]="{ background: vessel.img?.data ? 'center / cover url('+vessel.img.data+') no-repeat' : '', float: 'left'}"></span>
                 <h2 [style]="{float: 'left', margin: '20px'}">{{vessel.name}}</h2>
               </ion-label>
             </ion-item>

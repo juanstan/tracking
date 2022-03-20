@@ -9,7 +9,7 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { HttpClient } from '@angular/common/http';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { finalize } from 'rxjs/operators';
-import { Storage } from '@ionic/storage';
+import {Img} from '../../model/img';
 
 const IMAGE_DIR = 'stored-images';
 
@@ -39,8 +39,7 @@ export class VesselDetailPage {
     private plt: Platform,
     private http: HttpClient,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
-    private storageService: Storage,
+    private toastCtrl: ToastController
   ) {}
 
   ionViewWillEnter() {
@@ -49,17 +48,6 @@ export class VesselDetailPage {
     this.vessel = this.vesselService.getVessel(this.vesselID);
     this.vessels = this.vesselService.allVessels;
     this.loadFiles();
-    /*this.dataProvider.load().subscribe((data: any) => {
-      const speakerId = this.route.snapshot.paramMap.get('speakerId');
-      if (data && data.speakers) {
-        for (const speaker of data.speakers) {
-          if (speaker && speaker.id === speakerId) {
-            this.speaker = speaker;
-            break;
-          }
-        }
-      }
-    });*/
   }
 
   openExternalUrl(url: string) {
@@ -158,29 +146,22 @@ export class VesselDetailPage {
   // Get the actual base64 data of an image
   // base on the name of the file
   async loadFileData(fileNames: string[]) {
-    for (const f of fileNames) {
+    fileNames.map(async f => {
       const filePath = `${IMAGE_DIR}/${f}`;
-
       const readFile = await Filesystem.readFile({
         path: filePath,
         directory: Directory.Data,
       });
-
-      this.image = {
+      const image: Img = {
         name: f,
         path: filePath,
         data: `data:image/jpeg;base64,${readFile.data}`,
       };
+      if (image.name === this.vessel.img?.name) {
+        this.image = image;
+      }
+    });
 
-      this.vessels = this.vessels.map(vessel => {
-        if (vessel.id === this.vessel.id) {
-          vessel.img = this.image.data;
-        }
-        return  vessel;
-      });
-      this.storageService.set('vessels', this.vessels);
-
-    }
   }
 
   // Little helper
@@ -232,6 +213,22 @@ export class VesselDetailPage {
       data: base64Data,
       directory: Directory.Data
     });
+
+    this.image = {
+      name: fileName,
+      path: `${IMAGE_DIR}/${fileName}`,
+      data: base64Data,
+    } as LocalFile;
+
+    // Saving image in the storage
+    this.vessels = this.vessels.map(vessel => {
+      if (vessel.id === this.vessel.id) {
+        vessel.img = this.image;
+      }
+      return  vessel;
+    });
+    this.vesselService.allVessels = this.vessels;
+
 
     // Reload the file list
     // Improve by only loading for the new image and unshifting array!
@@ -288,5 +285,5 @@ export class VesselDetailPage {
       resolve(reader.result);
     };
     reader.readAsDataURL(blob);
-  });
+  })
 }

@@ -2,23 +2,28 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import Echo from 'laravel-echo';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Vessel} from '../model/vessel';
-
+import {MapService} from './map.service';
+import { Storage } from '@ionic/storage';
 
 @Injectable({ providedIn: 'root' })
 export class VesselService {
   public vessels: Vessel[];
+  public selectedVessel: Vessel;
   public vessels$ = new BehaviorSubject<Vessel[]>(null);
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private mapService: MapService,
+    private storageService: Storage
   ) {
+
     this.vessels$.subscribe(vessels => {
       this.vessels = vessels;
+      this.mapService.map$.next(vessels);
     });
 
   }
@@ -28,6 +33,7 @@ export class VesselService {
   }
 
   public set allVessels(vessels) {
+    this.storageService.set('vessels', this.vessels);
     this.vessels$.next(vessels);
   }
 
@@ -41,8 +47,19 @@ export class VesselService {
 
   public requestMyVessels(): Observable<Vessel[]> {
     return this.http.get<Vessel[]>(`${environment.apiUrl}/vessels`).pipe(
-      map(vessels => vessels)
+      map(vessels => {
+        this.selectedVessel = vessels[0];
+        return vessels;
+      })
     );
+  }
+
+  public vesselSelected(vesselID) {
+    this.selectedVessel = this.vessels.find(vessel => vessel.id === vesselID);
+  }
+
+  public getVesselSelected(): Vessel {
+    return this.selectedVessel;
   }
 
 
