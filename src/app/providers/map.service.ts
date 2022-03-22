@@ -41,7 +41,6 @@ export class MapService {
         vessels?.map(vessel => this.addVesselsMark(vessel));
       }
     });
-
   }
 
   async getDefaultMapValues(): Promise<void> {

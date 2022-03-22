@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {VesselService} from '../../providers/vessel.service';
+import {Vessel} from '../../model/vessel';
 
 @Component({
   selector: 'page-vessel-list',
@@ -7,11 +8,27 @@ import {VesselService} from '../../providers/vessel.service';
   styleUrls: ['./vessel-list.scss'],
 })
 export class VesselListPage {
-  vessels: any[] = [];
+  vessels: Vessel[] = [];
+  vesselSelected: Vessel;
 
   constructor(private vesselService: VesselService) {}
 
   ionViewDidEnter() {
-    this.vessels = this.vesselService.vessels;
+   this.vessels = this.vesselService.vessels;
+   this.checkVesselSelected();
   }
+
+  selectVessel(vessel: Vessel) {
+    this.vesselService.setVesselSelected(vessel.id);
+    if (vessel === this.vesselSelected) {
+      this.vesselService.setVesselSelected(null);
+    }
+    this.checkVesselSelected();
+  }
+
+  checkVesselSelected() {
+    this.vesselSelected = this.vesselService.getVesselSelected();
+    debugger;
+  }
+
 }

@@ -1,6 +1,22 @@
 .speaker-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  padding: 0!important;
+  ion-card-header {
+    width:100%;
+    ion-item {
+        ion-label {
+          p {
+            margin-top: 100px;
+            position: absolute;
+            right: 30px;
+          }
+        }
+    }
+  }
+  &.active {
+    border: 1px solid #ddd !important;
+  }
 }
 
 /* Due to the fact the cards are inside of columns the margins don't overlap
@@ -12,6 +28,9 @@ ion-col:not(:last-of-type) .speaker-card {
 
 .speaker-card .speaker-item {
   --min-height: 85px;
+  a {
+    color: black;
+  }
 }
 
 .speaker-card .speaker-item h2 {
@@ -23,15 +42,10 @@ ion-col:not(:last-of-type) .speaker-card {
 .speaker-card .speaker-item p {
   font-size: 13px;
   letter-spacing: 0.02em;
+  width: 20px;
 }
 
 .speaker-card ion-card-header {
-  padding: 0;
-}
-
-.speaker-card ion-card-content {
-  flex: 1 1 auto;
-
   padding: 0;
 }
 
@@ -57,5 +71,25 @@ ion-col:not(:last-of-type) .speaker-card {
   width: 50px;
   height: 50px;
   margin: 10px auto;
-
+  &.icon-vessel{
+    margin: 0;
+  }
 }
+
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.label-vessel-list{
+  pointer-events:visible !important;
+}
+

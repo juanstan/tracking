@@ -54,8 +54,8 @@ export class VesselService {
     );
   }
 
-  public vesselSelected(vesselID) {
-    this.selectedVessel = this.vessels.find(vessel => vessel.id === vesselID);
+  public setVesselSelected(vesselID) {
+    this.selectedVessel = vesselID ? this.vessels.find(vessel => vessel.id === vesselID) : null;
   }
 
   public getVesselSelected(): Vessel {
