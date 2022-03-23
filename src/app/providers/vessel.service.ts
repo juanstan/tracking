@@ -11,7 +11,7 @@ import { Storage } from '@ionic/storage';
 @Injectable({ providedIn: 'root' })
 export class VesselService {
   public vessels: Vessel[];
-  public selectedVessel: Vessel;
+  public vesselSelected: Vessel;
   public vessels$ = new BehaviorSubject<Vessel[]>(null);
 
   constructor(
@@ -23,7 +23,7 @@ export class VesselService {
 
     this.vessels$.subscribe(vessels => {
       this.vessels = vessels;
-      this.mapService.map$.next(vessels);
+      this.mapService.map$.next({vessels: this.vessels , vesselSelected: this.vesselSelected});
     });
 
   }
@@ -47,19 +47,16 @@ export class VesselService {
 
   public requestMyVessels(): Observable<Vessel[]> {
     return this.http.get<Vessel[]>(`${environment.apiUrl}/vessels`).pipe(
-      map(vessels => {
-        this.selectedVessel = vessels[0];
-        return vessels;
-      })
+      map(vessels => vessels)
     );
   }
 
   public setVesselSelected(vesselID) {
-    this.selectedVessel = vesselID ? this.vessels.find(vessel => vessel.id === vesselID) : null;
+    this.vesselSelected = vesselID ? this.vessels.find(vessel => vessel.id === vesselID) : null;
   }
 
   public getVesselSelected(): Vessel {
-    return this.selectedVessel;
+    return this.vesselSelected;
   }
 
 

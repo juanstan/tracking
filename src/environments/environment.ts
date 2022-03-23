@@ -8,9 +8,16 @@ export const environment = {
   mapbox: {
     accessToken: 'pk.eyJ1IjoianVhbnN0YW4iLCJhIjoiY2wwbmd4OHJ1MWJhZzNicXRrZzJpY3JlciJ9.Xoyr3G5e_tCy_ZAsTv4aeQ',
     icon: {
-      iconUrl: 'assets/img/marker-icon.png',
-      shadowUrl: 'assets/img/marker-shadow.png',
-      popupAnchor: [13, 0],
+      vessel: {
+        iconUrl: 'assets/img/marker-icon.png',
+        shadowUrl: 'assets/img/marker-shadow.png',
+        popupAnchor: [13, 0],
+      },
+      locator: {
+        iconUrl: 'assets/img/marker-user-icon.png',
+        shadowUrl: 'assets/img/marker-shadow.png',
+        popupAnchor: [13, 0],
+      }
     }
   }
 };

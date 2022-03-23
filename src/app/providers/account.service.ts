@@ -129,6 +129,9 @@ export class AccountService {
       take(1),
       map((data: any) => {
         this.vesselService.allVessels = data.data.vessels;
+        if (this.vesselService.allVessels.length === 1) {
+          this.vesselService.setVesselSelected(this.vesselService.allVessels[0].id);
+        }
       })
     );
   }
@@ -152,7 +155,6 @@ export class AccountService {
 
     this.echo.channel(`MT-User-${this.user.id}`)
       .listen('TrackingPing', (data) => {
-        console.log(data);
         this.vesselService.allVessels = this.vesselService.allVessels.map(vessel => {
           if (vessel.id === data.vesselId) {
             vessel.lat = data.lat;

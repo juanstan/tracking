@@ -16,19 +16,20 @@ export class VesselListPage {
   ionViewDidEnter() {
    this.vessels = this.vesselService.vessels;
    this.checkVesselSelected();
+
   }
 
   selectVessel(vessel: Vessel) {
+    this.vesselService.setVesselSelected(null);
     this.vesselService.setVesselSelected(vessel.id);
-    if (vessel === this.vesselSelected) {
-      this.vesselService.setVesselSelected(null);
-    }
+
     this.checkVesselSelected();
+
   }
 
   checkVesselSelected() {
     this.vesselSelected = this.vesselService.getVesselSelected();
-    debugger;
+
   }
 
 }

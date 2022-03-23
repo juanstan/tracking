@@ -16,3 +16,11 @@
 #map {
   height: 100%;
 }
+
+#refreshButton {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  padding: 10px;
+  z-index: 400;
+}
