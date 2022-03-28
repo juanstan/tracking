@@ -32,4 +32,8 @@ export class VesselListPage {
 
   }
 
+  addVessel(e) {
+    return true;
+  }
+
 }

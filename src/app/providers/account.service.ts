@@ -82,7 +82,7 @@ export class AccountService {
       last_name: user.last_name,
       email: user.email,
       password: user.password,
-      password_conformation: user.password_conformation
+      password_confirmation: user.password_confirmation
     };
     return this.http.post(`${environment.apiUrl}/auth/register`, obj);
   }

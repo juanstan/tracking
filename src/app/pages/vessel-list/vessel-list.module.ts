@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { VesselListPage } from './vessel-list';
 import { VesselListPageRoutingModule } from './vessel-list-routing.module';
 
+
 @NgModule({
   imports: [
     CommonModule,

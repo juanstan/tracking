@@ -94,18 +94,21 @@ export class MapService {
   }
 
   updateMap(vesselSelected: Vessel) {
-    this.myMap.setView([vesselSelected.lat, vesselSelected.lng] );
+    if (vesselSelected?.lat && vesselSelected?.lng) {
+      this.myMap.setView([vesselSelected.lat, vesselSelected.lng], this.initialState.zoom);
+    }
   }
 
   currentUserLocation() {
     if (navigator.geolocation) {
+      const geoUSerLocation =  () => navigator.geolocation.getCurrentPosition((position) => {
+        if (position) {
+          this.setMarker({ id: -1, lat: position.coords.latitude, lng: position.coords.longitude }, 'locator');
+        }
+      });
+      geoUSerLocation();
       this.timeOutUser = setInterval(
-        () => navigator.geolocation.getCurrentPosition((position) => {
-          if (position) {
-            this.setMarker({ id: -1, lat: position.coords.latitude, lng: position.coords.longitude }, 'locator');
-          }
-        }), 10000
-      );
+        geoUSerLocation, 10000);
     }
   }
 

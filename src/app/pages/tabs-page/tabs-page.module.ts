@@ -10,6 +10,7 @@ import { MapModule } from '../map/map.module';
 import { ScheduleModule } from '../schedule/schedule.module';
 import { SessionDetailModule } from '../session-detail/session-detail.module';
 import { VesselDetailModule } from '../vessel-detail/vessel-detail.module';
+import { VesselEditModule } from '../vessel-edit/vessel-edit.module';
 import { VesselListModule } from '../vessel-list/vessel-list.module';
 import {AccountModule} from '../account/account.module';
 
@@ -23,6 +24,7 @@ import {AccountModule} from '../account/account.module';
     SessionDetailModule,
     VesselDetailModule,
     VesselListModule,
+    VesselEditModule,
     TabsPageRoutingModule,
     AccountModule
   ],

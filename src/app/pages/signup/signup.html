@@ -30,7 +30,7 @@
       </ion-item>
       <ion-item lines="full">
         <ion-label color="light" position="fixed">Password Confirmation</ion-label>
-        <ion-input type="text" formControlName="password_confirm" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password_confirm.errors }">
+        <ion-input type="text" formControlName="password_confirmation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password_confirmation.errors }">
         </ion-input>
       </ion-item>
     </ion-list>
@@ -47,7 +47,7 @@
     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
       <div *ngIf="f.password.errors.required">Password is required</div>
     </div>
-    <div *ngIf="submitted && f.password_confirm.errors" class="invalid-feedback">
+    <div *ngIf="submitted && f.password_confirmation.errors" class="invalid-feedback">
       <div *ngIf="f.password_confirm.errors.required">Password confirmation is required</div>
     </div>
 

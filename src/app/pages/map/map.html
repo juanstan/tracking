@@ -9,5 +9,5 @@
 
 <ion-content>
   <div class="map-container" #map></div>
-  <button id="refreshButton" (click)="reset()">Reset</button>
+  <button id="refreshButton" (click)="reset()" [class.hidden]="!showReset">Reset</button>
 </ion-content>

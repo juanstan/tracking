@@ -10,6 +10,7 @@ import {VesselService} from '../../providers/vessel.service';
 export class MapPage {
   @ViewChild('map')
   private mapContainer: ElementRef<HTMLElement>;
+  showReset: boolean;
 
   constructor(
     private mapService: MapService,
@@ -17,6 +18,7 @@ export class MapPage {
     ) {}
 
   async ionViewWillEnter() {
+    this.showReset = false;
     await this.mapService.initMap(this.mapContainer.nativeElement);
     this.mapService.drawMap();
     this.mapService.myMap?.invalidateSize(true);
@@ -37,12 +39,14 @@ export class MapPage {
 
     this.mapService.myMap.on('dragend', (e) => {
       this.mapService.mapSubscription.unsubscribe();
+      this.showReset = true;
     });
 
   }
 
   reset() {
     this.mapService.subscribeMap();
+    this.showReset = false;
   }
 
 }

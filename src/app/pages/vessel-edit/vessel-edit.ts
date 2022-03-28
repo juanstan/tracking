@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {first} from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AccountService} from '../../providers/account.service';
 import {AlertService} from '../../shared/services/alert.service';
-
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 
 @Component({
-  templateUrl: 'signup.html',
-  styleUrls: ['./signup.scss'],
+  selector: 'page-vessel-edit',
+  templateUrl: 'vessel-edit.html',
+  styleUrls: ['./vessel-edit.scss'],
 })
-export class SignupComponent implements OnInit {
+export class VesselEditPage implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
@@ -20,20 +21,25 @@ export class SignupComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    private alertService: AlertService
-  ) { }
+    private alertService: AlertService,
+    private barcodeScanner: BarcodeScanner
+  ) {}
 
   ngOnInit() {
-    if (this.accountService.tokenValue) {
-      this.router.navigateByUrl('/app/tabs/map');
-      return;
-    }
     this.form = this.formBuilder.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      email: ['', Validators.required],
-      password_confirmation: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      name: ['', Validators.required],
+      qr: ['', Validators.required]
+    });
+  }
+
+  scan() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      console.log('Barcode data', barcodeData);
+      this.form.patchValue({
+        qr: barcodeData?.text
+      });
+    }).catch(err => {
+      console.log('Error', err);
     });
   }
 
@@ -65,4 +71,5 @@ export class SignupComponent implements OnInit {
         }
       });
   }
+
 }

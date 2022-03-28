@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs-page';
 import {SettingsPage} from '../settings/settings';
+import {VesselEditPage} from "../vessel-edit/vessel-edit";
 
 
 const routes: Routes = [
@@ -15,6 +16,19 @@ const routes: Routes = [
           {
             path: '',
             component: SettingsPage,
+          }/*,
+          {
+            path: 'session/:sessionId',
+            loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
+          }*/
+        ]
+      },
+      {
+        path: 'vessel-edit',
+        children: [
+          {
+            path: '',
+            component: VesselEditPage,
           }/*,
           {
             path: 'session/:sessionId',
