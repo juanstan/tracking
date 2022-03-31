@@ -15,6 +15,8 @@ export class VesselEditPage implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
+  qr: string;
+  checkQR: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,17 +28,22 @@ export class VesselEditPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.checkQR = false;
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      qr: ['', Validators.required]
+      qr: [false, Validators.required]
     });
   }
 
   scan() {
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
+      if (barcodeData?.text) {
+        this.checkQR = true;
+        this.qr = barcodeData.text;
+      }
       this.form.patchValue({
-        qr: barcodeData?.text
+        qr: true
       });
     }).catch(err => {
       console.log('Error', err);

@@ -17,8 +17,7 @@
         </ion-item>
         <ion-item lines="full">
           <ion-label color="dark" position="fixed">QR</ion-label>
-          <ion-input type="text" readonly formControlName="qr" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
-          </ion-input>
+          <ion-icon *ngIf="qr" name="checkmark"></ion-icon>
         </ion-item>
       </ion-list>
     </form>
